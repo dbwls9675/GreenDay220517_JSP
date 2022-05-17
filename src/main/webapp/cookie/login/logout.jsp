@@ -9,12 +9,29 @@
 </head>
 <body>
 <h1>로그아웃</h1>
+
+
 <% 
+
+String perName = null;
+for(Cookie coo : request.getCookies()){
+	if(coo.getName().equals("pName")){
+		perName = coo.getValue();
+		break;
+	}
 	
-	MemberDTO dto = (MemberDTO)application.getAttribute("inUser");
-	String msg = dto.getPname()+"님 로그아웃되었습니다";
+}
 	
-	application.removeAttribute("inUser");
+	Cookie coo1= new Cookie("pid","");
+	coo1.setMaxAge(0);
+	response.addCookie(coo1);
+	
+	coo1 = new Cookie("pName","");
+	coo1.setMaxAge(0);
+	response.addCookie(coo1);
+	
+	String msg =perName+"님 로그아웃되었습니다";
+	
 %>	
 
 <script>

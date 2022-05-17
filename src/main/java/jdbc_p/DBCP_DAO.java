@@ -1,14 +1,16 @@
 package jdbc_p;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
-public class MemberDAO {
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
+public class DBCP_DAO {
 
 	Connection con;
 	//Statement stmt;
@@ -16,20 +18,14 @@ public class MemberDAO {
 	ResultSet rs;
 	String sql;
 
-	public MemberDAO() {
-		String url = "jdbc:mariadb://localhost:3306/mysql";
-		String username = "root";
-		String password = "1234";
-
+	public DBCP_DAO() {
+		
 		try {
-			Class.forName("org.mariadb.jdbc.Driver");
-
-			con = DriverManager.getConnection(url, username, password);
+			Context context = new InitialContext();
+			DataSource ds = (DataSource)context.lookup("java:comp/env/qazxsw");
+			con = ds.getConnection();
 			
-			//stmt = con.createStatement();
-
 		} catch (Exception e) {
-			
 			e.printStackTrace();
 		}
 	}
@@ -48,6 +44,7 @@ public class MemberDAO {
 				MemberDTO dto = new MemberDTO();
 				dto.setPid(rs.getString("pid"));
 				dto.setPname(rs.getString("pname"));
+				dto.setAge(rs.getInt("pw"));
 				dto.setAge(rs.getInt("age"));
 				dto.setMarriage(rs.getInt("marriage"));
 				dto.setReg_date(rs.getTimestamp("reg_date"));
@@ -113,11 +110,12 @@ public class MemberDAO {
 
 			if (rs.next()) {
 				res = new MemberDTO();
-				res.setPid(rs.getString("pid"));
-				res.setPname(rs.getString("pname"));
-				res.setAge(rs.getInt("age"));
-				res.setMarriage(rs.getInt("marriage"));
-				res.setReg_date(rs.getTimestamp("reg_date"));
+				dto.setPid(rs.getString("pid"));
+				dto.setPname(rs.getString("pname"));
+				dto.setAge(rs.getInt("pw"));
+				dto.setAge(rs.getInt("age"));
+				dto.setMarriage(rs.getInt("marriage"));
+				dto.setReg_date(rs.getTimestamp("reg_date"));
 			}
 
 		} catch (SQLException e) {

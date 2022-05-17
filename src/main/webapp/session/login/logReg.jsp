@@ -1,7 +1,13 @@
 <%@page import="java.util.HashMap"%>
 <%@page import="jdbc_p.MemberDTO"%>
+<%@page import="jdbc_p.MemberDAO"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<jsp:useBean id="dto" class="jdbc_p.MemberDTO"/>
+<jsp:setProperty property="*" name="dto"/>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,8 +17,17 @@
 <body>
 <h1>로그인 처리</h1>
 <%
+	MemberDTO mmm = new MemberDAO().detail(null);
+	System.out.println("logReg : "+mmm);
+	String msg = "로그인 실패";
 	
-	HashMap<String, MemberDTO> mems = new HashMap<>();
+	if(mmm!=null){
+		msg = "로그인 성공";
+		
+		session.setAttribute("inUser",mmm);
+	}
+	
+	/* HashMap<String, MemberDTO> mems = new HashMap<>();
 	mems.put("",new MemberDTO());
 	
 	mems.put("aaa", new MemberDTO("aaa", "1111","장동건1"));
@@ -23,17 +38,17 @@
 	
 	String pid = request.getParameter("pid");
 	String msg = "로그인 실패";
-
+	
 	if(mems.containsKey(pid)){
 		
 	MemberDTO dto = mems.get(pid);
 	
 	if(dto.getPw().equals(request.getParameter("pw"))){
 		msg = "로그인 성공";
-		response.addCookie(new Cookie("pid",dto.getPid()));
-		response.addCookie(new Cookie("pName",dto.getPname()));
+		
+		session.setAttribute("pname",dto);
 		}
-	}
+	} */
 %>
 
 <script>

@@ -9,21 +9,11 @@
 </head>
 <body>
 <h1>메인페이지입니다</h1>
-
 <% 
-	String perName = null, pid = null;
-	for(Cookie coo : request.getCookies()){
-		if(coo.getName().equals("pName")){
-			perName = coo.getValue();
-		}
-		if(coo.getName().equals("pid")){
-			pid = coo.getValue();
-		}
-	}
-
-	if(perName!=null){
+	if(session.getAttribute("pname")!=null){
+		MemberDTO dto = (MemberDTO)session.getAttribute("pname");
 %>		
-	<%=perName%>님 안녕하세요 
+	<%=dto.getPname() %>님 안녕하세요 
 	<a href="logout.jsp">로그아웃</a>	
 <%}else{%>
 

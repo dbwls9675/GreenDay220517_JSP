@@ -5,7 +5,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee                       
 http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
 
-<error-page>
+<!-- <error-page>
 	<error-code>500</error-code>
 	<location>/excep/excep500.jsp</location>
 </error-page>
@@ -18,6 +18,6 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
 <error-page>
 	<exception-type>java.lang.ArrayIndexOutOfBoundsException</exception-type>
 	<location>/excep/excepArrayIndex.jsp</location>
-</error-page>   
+</error-page>  -->  
 
 </web-app>
